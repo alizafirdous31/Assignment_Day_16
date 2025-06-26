@@ -1,0 +1,47 @@
+<!-- register.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Registration</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    input { display: block; margin: 10px 0; padding: 8px; }
+    .message { color: green; }
+    .error { color: red; }
+  </style>
+</head>
+<body>
+  <h2>User Registration</h2>
+  <form id="registrationForm">
+    <input type="text" id="name" placeholder="Name" required />
+    <input type="email" id="email" placeholder="Email" required />
+    <input type="password" id="password" placeholder="Password" required />
+    <button type="submit">Register</button>
+  </form>
+  <p class="message" id="message"></p>
+  <script>
+    const form = document.getElementById("registrationForm");
+    const message = document.getElementById("message");
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const password = document.getElementById("password").value;
+
+      if (name === "" || email === "" || password === "") {
+        message.textContent = "Please fill out all fields.";
+        message.className = "error";
+        return;
+      }
+
+      const userData = { name, email, password };
+      localStorage.setItem(email, JSON.stringify(userData));
+      message.textContent = "Registration successful!";
+      message.className = "message";
+      form.reset();
+    });
+  </script>
+</body>
+</html>
